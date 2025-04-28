@@ -4,6 +4,7 @@ import createUserToken from '../helpers/create-user-token.js';
 import getToken from '../helpers/get-token.js';
 import jwt from 'jsonwebtoken';
 import getUserByToken from '../helpers/get-user-by-token.js'
+import Logger from "../config/logger.js";
 
 export default class UserController {
     static async register(req, res) {
@@ -64,6 +65,7 @@ export default class UserController {
 
             await createUserToken(newUser, req, res)
         } catch (error) {
+            Logger.error(`Erro ao criar user no banco: ${error}`)
             res.status(500).json({ message: error })
         }
     }
@@ -225,6 +227,7 @@ export default class UserController {
                 data: updateUser,
             })
         } catch (error) {
+            Logger.error(`Erro ao atualizar user no banco: ${error}`)
             res.status(500).json({ message: error })
         }
     }

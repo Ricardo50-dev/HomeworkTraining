@@ -1,5 +1,7 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+// Logger
+import Logger from "./logger.js";
 dotenv.config();
 
 const dbUser = process.env.DB_USER;
@@ -16,9 +18,10 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
 async function connectDB() {
   try {
     await sequelize.authenticate();
-    console.log('Conectamos com sucesso com o Sequelize!');
+    Logger.info("DB Connected");
   } catch (err) {
-    console.error('Não foi possível conectar: ', err);
+    Logger.error(`Could not connect to db`);
+    Logger.error(`Error: ${e}`);
   }
 }
 
