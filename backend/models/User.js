@@ -38,6 +38,9 @@ const User = db.define('usuario', {
     },
     pratica: {
         type: DataTypes.STRING(5),
+    },
+    imagem: {
+        type: DataTypes.STRING(50),
     }
 }, {
     tableName: 'usuario', 
