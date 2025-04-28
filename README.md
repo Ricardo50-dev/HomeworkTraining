@@ -1,2 +1,2 @@
-# Homework Treining
+# Homework Training
 Este projeto foi desenvolvido em NodeJS e Express no backend e React no frontend. O site consiste em um gerenciador de dieta e treinos com o próprio pesso do corpo, em que o usuário cria seus próprios treinos e dieta visando os macro nutrientes calculados após o usuário adicionar as informações de idade, altura, peso, genero, entre outras. O App também calcula quantas Kcal por refeição através de um algoritmo de busca e otimização (O clássico problema da dieta).
