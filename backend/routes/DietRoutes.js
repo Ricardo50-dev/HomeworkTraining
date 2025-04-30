@@ -5,6 +5,7 @@ import DietController from '../controllers/DietController.js';
 
 const router = routerEX.Router() 
 
-router.post("/create", DietController.create);
+router.get("/create-diet", DietController.create_diet);
+router.post("/create-snacks", DietController.create_snacks);
 
 export default router;

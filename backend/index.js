@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import UserRoutes from './routes/UserRoutes.js';
 // import TrainingRoutes from './routes/TrainingRoutes.js'
-// import DietRoutes from './routes/DietRoutes.js'
+import DietRoutes from './routes/DietRoutes.js'
 
 dotenv.config();
 const app = express()
