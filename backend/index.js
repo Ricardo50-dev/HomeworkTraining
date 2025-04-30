@@ -20,6 +20,6 @@ app.use(express.static('public'))
 //Routes
 app.use('/users', UserRoutes)
 // app.use('/training', TrainingRoutes)
-// app.use('/diet', DietRoutes)
+app.use('/diet', DietRoutes)
 
 app.listen(port_server)
