@@ -11,7 +11,10 @@ router.post("/create-snacks", verifyToken, DietController.create_snacks);
 router.post("/create-food", verifyToken, DietController.create_food);
 router.patch("/create-foods", verifyToken, imageUpload.single("image"), DietController.create_foods);
 
-router.delete("/delete-diet/:id", verifyToken, DietController.delete_diet_by_id)
-router.delete("/delete-food/:id", verifyToken, DietController.delete_food_by_id)
+router.post("/edit-snacks/:id", verifyToken, DietController.edit_snack);
+router.post("/edit-food/:id", verifyToken, DietController.edit_food);
+router.patch("/edit-foods/:id", verifyToken, imageUpload.single("image"), DietController.edit_foods);
+router.delete("/delete-diet/:id", verifyToken, DietController.delete_diet_by_id);
+router.delete("/delete-food/:id", verifyToken, DietController.delete_food_by_id);
 
 export default router;
