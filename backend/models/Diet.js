@@ -27,6 +27,8 @@ Diet.belongsTo(User, {
     foreignKey: "id_user",
 })
 
-User.hasOne(Diet)
+User.hasOne(Diet, {
+    foreignKey: "id_user",
+})
 
 export default Diet

@@ -51,6 +51,8 @@ Snack.belongsTo(Diet, {
     foreignKey: "id_dieta",
 })
 
-Diet.hasMany(Snack)
+Diet.hasMany(Snack, {
+    foreignKey: "id_dieta",
+})
 
 export default Snack

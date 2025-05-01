@@ -136,4 +136,50 @@ export default class DietController {
             res.status(500).json({ message: error })
         }
     }
+
+    static async delete_food_by_id(req, res) {
+        const id = req.params.id
+
+        const food = await Food.findOne({ where: { id: id } })
+
+        if (!food) {
+            res.status(404).json({ message: 'Alimento da refeição não encontrado!' })
+            return
+        }
+
+        try {
+            await Food.destroy({ where: { id: id } })
+            res.status(200).json({ message: 'Alimento da refeição removido com sucesso!' })
+        } catch (error) {
+            Logger.error(`Erro ao remover o alimento da refeição no banco: ${error}`)
+            res.status(500).json({ message: error })
+        }
+    }
+
+    static async delete_diet_by_id(req, res) {
+        const id = req.params.id
+        let decoded
+
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            decoded = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            res.status(403).json({ message: 'Você precisa estar logado!'})
+        }
+
+        const diet = await Diet.findOne({ where: { id: id, id_user: decoded.id} })
+
+        if (!diet) {
+            res.status(404).json({ message: 'Dieta não encontrada!' })
+            return
+        }
+
+        try {
+            await Diet.destroy({ where: { id: id } })
+            res.status(200).json({ message: 'Dieta deletada com sucesso!' })
+        } catch (error) {
+            Logger.error(`Erro ao deletar dieta no banco: ${error}`)
+            res.status(500).json({ message: error })
+        }
+    }
 }
