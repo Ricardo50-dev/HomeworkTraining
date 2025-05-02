@@ -295,7 +295,7 @@ export default class DietController {
             categoria: categoria,
         }
 
-        if(foto) {
+        if (foto) {
             updateData.foto = foto
         }
 
@@ -313,5 +313,114 @@ export default class DietController {
             Logger.error(`Erro ao atualizar alimento no banco: ${error}`)
             res.status(500).json({ message: error })
         }
+    }
+
+    static async get_diet(req, res) {
+        let decoded
+
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            decoded = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            res.status(403).json({ message: 'Você precisa estar logado!' })
+        }
+
+        const diet = await Diet.findOne({ where: { id_user: decoded.id } })
+
+        if (!diet) {
+            res.status(404).json({ message: 'Dieta não encontrada!' })
+            return
+        }
+
+        res.status(200).json({ diet })
+    }
+
+    static async get_snacks(req, res) {
+        let decoded
+
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            decoded = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            res.status(403).json({ message: 'Você precisa estar logado!' })
+        }
+
+        const snacks = await Snack.findAll({
+            attributes: ['id', 'horario', 'nome', 'calorias', 'proteinas', 'carboidratos', 'gorduras'],
+            include: [
+                {
+                    model: Diet,
+                    attributes: [], // não queremos nada da Dieta
+                    where: {
+                        id_user: decoded.id // substitua pela variável apropriada
+                    }
+                }
+            ]
+        });
+
+        if (!snacks) {
+            res.status(404).json({ message: 'Refeições não encontradas!' })
+            return
+        }
+
+        res.status(200).json({ snacks })
+    }
+
+    static async get_food(req, res) {
+        let decoded
+
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            decoded = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            res.status(403).json({ message: 'Você precisa estar logado!' })
+        }
+
+        const food = await Food.findAll({
+            attributes: ['id_refeicao', 'porcao'],
+            include: [
+                {
+                    model: Snack,
+                    required: true, // força INNER JOIN
+                    attributes: [],
+                    include: [
+                        {
+                            model: Diet,
+                            required: true,
+                            attributes: [],
+                            where: {
+                                id_user: decoded.id, // substitua por seu valor
+                            },
+                        },
+                    ],
+                },
+                {
+                    model: Foods,
+                    required: true, // força INNER JOIN
+                    as: 'alimentoDetalhes', // <- alias diferente
+                    attributes: ['nome', 'calorias', 'carboidratos', 'proteinas', 'gorduras', 'quantidade'],
+                },
+            ],
+        });
+
+        if (!food) {
+            res.status(404).json({ message: 'Alimentos das refeições não encontrados!' })
+            return
+        }
+
+        res.status(200).json({ food })
+    }
+
+    static async get_foods(req, res) {
+        const foods = await Foods.findAll({
+            attributes: ['id', 'nome', 'calorias', 'carboidratos', 'proteinas', 'gorduras', 'quantidade', 'categoria', 'foto'],
+        });
+
+        if (!foods) {
+            res.status(404).json({ message: 'Alimentos não encontrados!' })
+            return
+        }
+
+        res.status(200).json({ foods })
     }
 }

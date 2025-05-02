@@ -44,6 +44,7 @@ Food.belongsTo(Snack, {
 
 Food.belongsTo(Foods, {
     foreignKey: "id_alimentos",
+    as: 'alimentoDetalhes' // mesmo alias usado no include
 })
 
 Snack.hasMany(Food, {
@@ -52,6 +53,7 @@ Snack.hasMany(Food, {
 
 Foods.hasMany(Food, {
     foreignKey: "id_alimentos",
+    as: 'alimentoDetalhes' // mesmo alias usado no include
 })
 
 export default Food
