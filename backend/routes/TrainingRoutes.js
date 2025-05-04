@@ -14,9 +14,9 @@ router.patch("/create-exercises", verifyToken, imageUpload.single("image"), Trai
 // router.get("/get-snacks", verifyToken, DietController.get_snacks);
 // router.get("/get-food", verifyToken, DietController.get_food);
 // router.get("/get-foods", verifyToken, DietController.get_foods);
-// router.post("/edit-snacks/:id", verifyToken, DietController.edit_snack);
-// router.post("/edit-food/:id", verifyToken, DietController.edit_food);
-// router.patch("/edit-foods/:id", verifyToken, imageUpload.single("image"), DietController.edit_foods);
+router.post("/edit-group/:id", verifyToken, TrainingController.edit_group);
+router.post("/edit-exercise/:id", verifyToken, TrainingController.edit_exercise);
+router.patch("/edit-exercises/:id", verifyToken, imageUpload.single("image"), TrainingController.edit_exercises);
 router.delete("/delete-training/:id", verifyToken, TrainingController.delete_training_by_id);
 router.delete("/delete-exercise/:id", verifyToken, TrainingController.delete_exercise_by_id);
 

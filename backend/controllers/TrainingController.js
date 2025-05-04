@@ -155,137 +155,103 @@ export default class TrainingController {
         }
     }
 
-    // static async edit_snack(req, res) {
-    //     const id = req.params.id
-    //     const nome = req.body.nome
-    //     const horario = req.body.horario
-    //     const calorias = req.body.calorias
-    //     const proteinas = req.body.proteinas
-    //     const carboidratos = req.body.carboidratos
-    //     const gorduras = req.body.gorduras
+    static async edit_group(req, res) {
+        const id = req.params.id
+        const nome = req.body.nome
+        const horario = req.body.horario
+        const agrupamento = req.body.agrupamento
 
-    //     try {
-    //         const updateSnack = await Snack.update(
-    //             {
-    //                 nome: nome,
-    //                 horario: horario,
-    //                 calorias: calorias,
-    //                 proteinas: proteinas,
-    //                 carboidratos: carboidratos,
-    //                 gorduras: gorduras,
-    //             },
-    //             {
-    //                 where: { id: id },
-    //             }
-    //         )
-    //         res.status(200).json({
-    //             message: 'Refeição atualizada com sucesso!',
-    //             data: updateSnack,
-    //         })
-    //     } catch (error) {
-    //         Logger.error(`Erro ao atualizar refeição no banco: ${error}`)
-    //         res.status(500).json({ message: error })
-    //     }
-    // }
+        try {
+            const updateGroup = await Group.update(
+                {
+                    nome: nome,
+                    horario: horario,
+                    agrupamento: agrupamento,
+                },
+                {
+                    where: { id: id },
+                }
+            )
+            res.status(200).json({
+                message: 'Grupo de treino atualizado com sucesso!',
+                data: updateGroup,
+            })
+        } catch (error) {
+            Logger.error(`Erro ao atualizar grupo de treino no banco: ${error}`)
+            res.status(500).json({ message: error })
+        }
+    }
 
-    // static async edit_food(req, res) {
-    //     const id = req.params.id
-    //     const porcao = req.body.porcao
+    static async edit_exercise(req, res) {
+        const id = req.params.id
+        const repet = req.body.repet
 
-    //     try {
-    //         const updateFood = await Food.update(
-    //             {
-    //                 porcao: porcao,
-    //             },
-    //             {
-    //                 where: { id: id },
-    //             }
-    //         )
-    //         res.status(200).json({
-    //             message: 'Alimento da refeição atualizado com sucesso!',
-    //             data: updateFood,
-    //         })
-    //     } catch (error) {
-    //         Logger.error(`Erro ao atualizar alimento da refeição no banco: ${error}`)
-    //         res.status(500).json({ message: error })
-    //     }
-    // }
+        try {
+            const updateExercise = await Exercise.update(
+                {
+                    repet: repet,
+                },
+                {
+                    where: { id: id },
+                }
+            )
+            res.status(200).json({
+                message: 'Exercício do grupo atualizado com sucesso!',
+                data: updateExercise,
+            })
+        } catch (error) {
+            Logger.error(`Erro ao atualizar exercício do grupo no banco: ${error}`)
+            res.status(500).json({ message: error })
+        }
+    }
 
-    // static async edit_foods(req, res) {
-    //     const id = req.params.id
-    //     const nome = req.body.nome
-    //     const calorias = req.body.calorias
-    //     const carboidratos = req.body.carboidratos
-    //     const proteinas = req.body.proteinas
-    //     const gorduras = req.body.gorduras
-    //     const quantidade = req.body.quantidade
-    //     const categoria = req.body.categoria
-    //     const foto = req.file ? req.file.filename : null
+    static async edit_exercises(req, res) {
+        const id = req.params.id
+        const nome = req.body.nome
+        const categoria = req.body.categoria
+        const descricao = req.body.descricao       
+        const gif = req.file ? req.file.filename : null
 
-    //     if (!nome) {
-    //         res.status(422).json({ message: 'O nome é obrigatório!' })
-    //         return
-    //     }
+        if (!nome) {
+            res.status(422).json({ message: 'O nome é obrigatório!' })
+            return
+        }
 
-    //     if (!calorias) {
-    //         res.status(422).json({ message: 'As calorias é obrigatório!' })
-    //         return
-    //     }
+        if (!categoria) {
+            res.status(422).json({ message: 'A categoria do exercício é obrigatório!' })
+            return
+        }
 
-    //     if (!carboidratos) {
-    //         res.status(422).json({ message: 'Os carboidratos é obrigatório!' })
-    //         return
-    //     }
+        if (!descricao) {
+            res.status(422).json({ message: 'As descrição do exercício é obrigatória!' })
+            return
+        }
 
-    //     if (!proteinas) {
-    //         res.status(422).json({ message: 'As proteinas é obrigatório!' })
-    //         return
-    //     }
+        const updateData = {
+            nome: nome,
+            categoria: categoria,
+            descricao: descricao,
+        }
 
-    //     if (!gorduras) {
-    //         res.status(422).json({ message: 'As gorduras é obrigatório!' })
-    //         return
-    //     }
+        if (gif) {
+            updateData.gif = gif
+        }
 
-    //     if (!quantidade) {
-    //         res.status(422).json({ message: 'A porção/quantidade é obrigatório!' })
-    //         return
-    //     }
-
-    //     if (!categoria) {
-    //         res.status(422).json({ message: 'A categoria do alimento é obrigatório!' })
-    //         return
-    //     }
-
-    //     const updateData = {
-    //         nome: nome,
-    //         calorias: calorias,
-    //         carboidratos: carboidratos,
-    //         proteinas: proteinas,
-    //         gorduras: gorduras,
-    //         quantidade: quantidade,
-    //         categoria: categoria,
-    //     }
-
-    //     if (foto) {
-    //         updateData.foto = foto
-    //     }
-
-    //     try {
-    //         const updateFoods = await Foods.update(updateData,
-    //             {
-    //                 where: { id: id },
-    //             }
-    //         )
-    //         res.status(200).json({
-    //             message: 'Alimento atualizado com sucesso!',
-    //             data: updateFoods,
-    //         })
-    //     } catch (error) {
-    //         Logger.error(`Erro ao atualizar alimento no banco: ${error}`)
-    //         res.status(500).json({ message: error })
-    //     }
-    // }
+        try {
+            const updateExercises = await Exercises.update(updateData,
+                {
+                    where: { id: id },
+                }
+            )
+            res.status(200).json({
+                message: 'Exercício atualizado com sucesso!',
+                data: updateExercises,
+            })
+        } catch (error) {
+            Logger.error(`Erro ao atualizar exercício no banco: ${error}`)
+            res.status(500).json({ message: error })
+        }
+    }
 
     // static async get_diet(req, res) {
     //     let decoded
