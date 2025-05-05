@@ -44,6 +44,7 @@ Exercise.belongsTo(Group, {
 
 Exercise.belongsTo(Exercises, {
     foreignKey: "id_exercicios",
+    as: 'exercicioDetalhes'
 })
 
 Group.hasMany(Exercise, {
@@ -52,6 +53,7 @@ Group.hasMany(Exercise, {
 
 Exercises.hasMany(Exercise, {
     foreignKey: "id_exercicios",
+    as: 'exercicioDetalhes'
 })
 
 export default Exercise

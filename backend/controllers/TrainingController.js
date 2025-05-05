@@ -253,112 +253,112 @@ export default class TrainingController {
         }
     }
 
-    // static async get_diet(req, res) {
-    //     let decoded
+    static async get_training(req, res) {
+        let decoded
 
-    //     if (req.headers.authorization) {
-    //         const token = getToken(req)
-    //         decoded = jwt.verify(token, process.env.JWT_SECRET)
-    //     } else {
-    //         res.status(403).json({ message: 'Você precisa estar logado!' })
-    //     }
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            decoded = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            res.status(403).json({ message: 'Você precisa estar logado!' })
+        }
 
-    //     const diet = await Diet.findOne({ where: { id_user: decoded.id } })
+        const training = await Training.findOne({ where: { id_user: decoded.id } })
 
-    //     if (!diet) {
-    //         res.status(404).json({ message: 'Dieta não encontrada!' })
-    //         return
-    //     }
+        if (!training) {
+            res.status(404).json({ message: 'Treino não encontrado!' })
+            return
+        }
 
-    //     res.status(200).json({ diet })
-    // }
+        res.status(200).json({ training })
+    }
 
-    // static async get_snacks(req, res) {
-    //     let decoded
+    static async get_group(req, res) {
+        let decoded
 
-    //     if (req.headers.authorization) {
-    //         const token = getToken(req)
-    //         decoded = jwt.verify(token, process.env.JWT_SECRET)
-    //     } else {
-    //         res.status(403).json({ message: 'Você precisa estar logado!' })
-    //     }
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            decoded = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            res.status(403).json({ message: 'Você precisa estar logado!' })
+        }
 
-    //     const snacks = await Snack.findAll({
-    //         attributes: ['id', 'horario', 'nome', 'calorias', 'proteinas', 'carboidratos', 'gorduras'],
-    //         include: [
-    //             {
-    //                 model: Diet,
-    //                 attributes: [], // não queremos nada da Dieta
-    //                 where: {
-    //                     id_user: decoded.id // substitua pela variável apropriada
-    //                 }
-    //             }
-    //         ]
-    //     });
+        const group = await Group.findAll({
+            attributes: ['id', 'horario', 'nome', 'agrupamento'],
+            include: [
+                {
+                    model: Training,
+                    attributes: [], // não queremos nada da Dieta
+                    where: {
+                        id_user: decoded.id // substitua pela variável apropriada
+                    }
+                }
+            ]
+        });
 
-    //     if (!snacks) {
-    //         res.status(404).json({ message: 'Refeições não encontradas!' })
-    //         return
-    //     }
+        if (!group) {
+            res.status(404).json({ message: 'Grupos de treino não encontrados!' })
+            return
+        }
 
-    //     res.status(200).json({ snacks })
-    // }
+        res.status(200).json({ group })
+    }
 
-    // static async get_food(req, res) {
-    //     let decoded
+    static async get_exercise(req, res) {
+        let decoded
 
-    //     if (req.headers.authorization) {
-    //         const token = getToken(req)
-    //         decoded = jwt.verify(token, process.env.JWT_SECRET)
-    //     } else {
-    //         res.status(403).json({ message: 'Você precisa estar logado!' })
-    //     }
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            decoded = jwt.verify(token, process.env.JWT_SECRET)
+        } else {
+            res.status(403).json({ message: 'Você precisa estar logado!' })
+        }
 
-    //     const food = await Food.findAll({
-    //         attributes: ['id_refeicao', 'porcao'],
-    //         include: [
-    //             {
-    //                 model: Snack,
-    //                 required: true, // força INNER JOIN
-    //                 attributes: [],
-    //                 include: [
-    //                     {
-    //                         model: Diet,
-    //                         required: true,
-    //                         attributes: [],
-    //                         where: {
-    //                             id_user: decoded.id, // substitua por seu valor
-    //                         },
-    //                     },
-    //                 ],
-    //             },
-    //             {
-    //                 model: Foods,
-    //                 required: true, // força INNER JOIN
-    //                 as: 'alimentoDetalhes', // <- alias diferente
-    //                 attributes: ['nome', 'calorias', 'carboidratos', 'proteinas', 'gorduras', 'quantidade'],
-    //             },
-    //         ],
-    //     });
+        const exercise = await Exercise.findAll({
+            attributes: ['id_grupo', 'repet'],
+            include: [
+                {
+                    model: Group,
+                    required: true, // força INNER JOIN
+                    attributes: [],
+                    include: [
+                        {
+                            model: Training,
+                            required: true,
+                            attributes: [],
+                            where: {
+                                id_user: decoded.id, // substitua por seu valor
+                            },
+                        },
+                    ],
+                },
+                {
+                    model: Exercises,
+                    required: true, // força INNER JOIN
+                    as: 'exercicioDetalhes', // <- alias diferente
+                    attributes: ['nome', 'categoria', 'descricao'],
+                },
+            ],
+        });
 
-    //     if (!food) {
-    //         res.status(404).json({ message: 'Alimentos das refeições não encontrados!' })
-    //         return
-    //     }
+        if (!exercise) {
+            res.status(404).json({ message: 'Exercícios dos grupos de treino não encontrados!' })
+            return
+        }
 
-    //     res.status(200).json({ food })
-    // }
+        res.status(200).json({ exercise })
+    }
 
-    // static async get_foods(req, res) {
-    //     const foods = await Foods.findAll({
-    //         attributes: ['id', 'nome', 'calorias', 'carboidratos', 'proteinas', 'gorduras', 'quantidade', 'categoria', 'foto'],
-    //     });
+    static async get_exercises(req, res) {
+        const exercises = await Exercises.findAll({
+            attributes: ['id', 'nome', 'categoria', 'descricao', 'gif'],
+        });
 
-    //     if (!foods) {
-    //         res.status(404).json({ message: 'Alimentos não encontrados!' })
-    //         return
-    //     }
+        if (!exercises) {
+            res.status(404).json({ message: 'Exercícios não encontrados!' })
+            return
+        }
 
-    //     res.status(200).json({ foods })
-    // }
+        res.status(200).json({ exercises })
+    }
 }
