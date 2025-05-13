@@ -7,22 +7,29 @@ import { useState } from "react";
 import Register from './components/pages/Auth/Register'
 import Login from './components/pages/Auth/Login'
 import Welcome from './components/pages/Welcome'
+import Home from './components/pages/Home'
+
+/* contexts */
+import { UserProvider } from './context/UserContext'
 
 function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        {/* <Route path="/user/profile" element={<Profile />} />
+      <UserProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          {/* <Route path="/user/profile" element={<Profile />} />
         <Route path="/pet/add" element={<AddPet />} />
         <Route path="/pet/edit/:id" element={<EditPet />} />
         <Route path="/pet/mypets" element={<MyPets />} />
         <Route path="/pet/myadoptions" element={<MyAdoptions />} />
         <Route path="/pet/:id" element={<PetDetails />} /> */}
-        <Route path="/" element={<Welcome />} />
-      </Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Welcome />} />
+        </Routes>
+      </UserProvider>
     </Router>
   )
 }
