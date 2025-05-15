@@ -1,8 +1,14 @@
-import React from 'react'
+// Components
+import Sidebar from "../layout/Sidebar"
+import Navbar from "../layout/Navbar"
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+      <Navbar />
+      <Sidebar />
+      <div>Home</div>
+    </>
   )
 }
 
