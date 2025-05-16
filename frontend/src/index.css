@@ -19,9 +19,32 @@ a {
     text-decoration: none
 }
 
+.show {
+    left: 0
+}
+
+.body-pd {
+    padding-left: 5.25rem
+}
+
+footer {
+    padding-left: 4.25rem;
+}
+
 @media screen and (min-width: 768px) {
     body {
         margin: 4rem 0 0 0;
         padding-left: 6.25rem
+    }
+    .show {
+        width: 14rem
+    }
+
+    .body-pd {
+        padding-left: 16rem
+    }
+
+    .show-footer {
+        padding-left: 14rem;
     }
 }

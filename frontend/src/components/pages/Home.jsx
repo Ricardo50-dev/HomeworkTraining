@@ -1,13 +1,15 @@
 // Components
 import Sidebar from "../layout/Sidebar"
 import Navbar from "../layout/Navbar"
+import Footer from "../layout/Footer"
 
 const Home = () => {
   return (
     <>
       <Navbar />
       <Sidebar />
-      <div>Home</div>
+      <div className="min-h-screen">Home</div>
+      <Footer />
     </>
   )
 }
