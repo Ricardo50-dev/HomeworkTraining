@@ -10,7 +10,7 @@ const Sidebar = () => {
         sessionStorage.clear();
 
         // 2. (Opcional) Atualizar contexto global de autenticação, se estiver usando Context API
-        authContext.setUser(null);
+        // authContext.setUser(null);
 
         // 3. Redirecionar para tela de login
         navigate('/login');

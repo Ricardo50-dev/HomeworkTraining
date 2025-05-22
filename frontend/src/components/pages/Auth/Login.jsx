@@ -18,7 +18,7 @@ const Login = () => {
         login(user)
     }
     return (
-        <div className="h-screen w-full bg-[url('./assets/black-brick-wall-textured-background.jpg')] bg-cover">
+        <div className="h-screen w-full bg-[url('./assets/black-brick-wall-textured-background.jpg')] bg-cover fixed left-0 top-0">
             <div className="flex absolute bg-black/40 h-screen w-full justify-center items-center">
                 <div className='flex flex-col border-purple-700 border-solid border-2 px-20 pt-10 pb-15 bg-black/40 w-120'>
                     <h1 className='text-white text-2xl self-center mb-7 uppercase'>Login</h1>
