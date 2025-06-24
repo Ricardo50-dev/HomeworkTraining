@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const Welcome = () => {
   return (
     <>
@@ -7,8 +9,8 @@ const Welcome = () => {
             <span className="font-bold">Homework Training</span>
           </a>
           <div>
-            <a className="mr-4 cursor-pointer">Login</a>
-            <a className="bg-purple-700 py-2 px-3 border-0 rounded-md text-white cursor-pointer hover:bg-purple-900">Cadastre-se</a>
+            <a className="mr-4 cursor-pointer"><Link to="/login">Login</Link></a>
+            <a className="bg-purple-700 py-2 px-3 border-0 rounded-md text-white cursor-pointer hover:bg-purple-900"><Link to="/register">Cadastre-se</Link></a>
           </div>
       </header>
       <div className="bg-purple-400 w-full py-5 left-0 absolute">
